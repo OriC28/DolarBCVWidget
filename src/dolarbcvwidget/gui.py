@@ -1,23 +1,34 @@
-import tkinter as tk
 from PIL import Image, ImageTk
+import tkinter as tk
+import sys
+import os
 
 from dolarbcvwidget.api import get_bcv_price
 from dolarbcvwidget.date import get_datetime_current
 
 """
-This module defines the GUI components for the DolarBCVWidget application using Tkinter.
-Classes:
-    Text (tk.Label): A custom label class with predefined styles for text display.
-    Widget (tk.Tk): The main widget class that creates and manages the application window, including UI configuration, drag events, price display, date display, and image rendering.
-Functions:
-    Widget.configure_ui(self): Configures the UI elements and styles of the widget.
-    Widget.set_events(self): Sets up mouse drag events for moving the window.
-    Widget.start_drag(self, event): Initializes drag data when the window is clicked.
-    Widget.drag(self, event): Updates the window position during dragging.
-    Widget.set_price(self): Displays the current dollar price or an error message.
-    Widget.set_date(self): Displays the current date.
-    Widget.set_image(self): Loads and displays an image in the widget.
+This module defines the GUI for the DolarBCVWidget application using Tkinter.
+    Text (tk.Label): Custom label widget with predefined styles for displaying text.
+    Widget (tk.Tk): Main application window, manages UI configuration, drag events, price and date display, and image rendering.
+    resource_path(relative_path): Returns the absolute path to a resource, compatible with PyInstaller and development environments.
+Widget Methods:
+    configure_ui(self): Configures the UI elements and styles of the widget.
+    set_events(self): Sets up mouse drag events for moving the window.
+    start_drag(self, event): Initializes drag data when the window is clicked.
+    drag(self, event): Updates the window position during dragging.
+    set_price(self): Displays the current dollar price or an error message.
+    set_date(self): Displays the current date.
+    set_image(self): Loads and displays an image in the widget.
 """
+
+
+def resource_path(relative_path):
+    """Gets the absolute path to a resource, works for development and PyInstaller."""
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 
 class Text(tk.Label):
@@ -92,7 +103,7 @@ class Widget(tk.Tk):
 
     def set_image(self):
         """Set image in widget."""
-        image = Image.open('assets/image.png')
+        image = Image.open(resource_path('assets/image.png'))
         image = image.resize((100, 100), Image.LANCZOS)
         photo_image = ImageTk.PhotoImage(image)
         image_label = tk.Label(self, image=photo_image, border=0)
