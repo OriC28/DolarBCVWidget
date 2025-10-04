@@ -69,6 +69,13 @@ class Widget(tk.Tk):
         self.set_price()
         self.set_date()
         self.set_image()
+        self.set_button_refresh()
+
+    def set_button_refresh(self):
+        button = tk.Button(self, text="Actualizar", command=self.set_price)
+        button.config(bg="#49cc90", fg="#ffffff", font=("Arial", 12, "bold"),
+                      border=0, cursor="hand2", activebackground="#258358")
+        button.place(x=290, y=160)
 
     def set_events(self):
         """Sets the drag events for the program window."""

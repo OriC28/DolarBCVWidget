@@ -1,4 +1,5 @@
 from datetime import datetime
+from unidecode import unidecode
 import locale
 
 """
@@ -24,4 +25,4 @@ def get_datetime_current():
 
     now = datetime.now()
     spanish_date = now.strftime("%A, %d de %B de %Y")
-    return spanish_date.capitalize()
+    return unidecode(spanish_date.capitalize())
